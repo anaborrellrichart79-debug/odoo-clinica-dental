@@ -1,0 +1,6 @@
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+
+# Apuntes personales para la entrevista (solo en local)
+docs/

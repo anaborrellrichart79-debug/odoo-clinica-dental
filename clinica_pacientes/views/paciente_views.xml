@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista de lista -->
+    <record id="clinica_paciente_view_list" model="ir.ui.view">
+        <field name="name">clinica.paciente.list</field>
+        <field name="model">clinica.paciente</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="nombre"/>
+                <field name="telefono"/>
+                <field name="fecha_nacimiento"/>
+                <field name="tratamiento_habitual"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="clinica_paciente_view_form" model="ir.ui.view">
+        <field name="name">clinica.paciente.form</field>
+        <field name="model">clinica.paciente</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="nombre" placeholder="Nombre del paciente"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="telefono"/>
+                            <field name="fecha_nacimiento"/>
+                        </group>
+                        <group>
+                            <field name="tratamiento_habitual"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Citas" name="citas">
+                            <field name="cita_ids">
+                                <list>
+                                    <field name="fecha"/>
+                                    <field name="tratamiento"/>
+                                    <field name="importe" sum="Total"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                    <field name="estado"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas" name="notas">
+                            <field name="notas" placeholder="Alergias, observaciones..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda: filtros y agrupaciones -->
+    <record id="clinica_paciente_view_search" model="ir.ui.view">
+        <field name="name">clinica.paciente.search</field>
+        <field name="model">clinica.paciente</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nombre"/>
+                <field name="telefono"/>
+                <filter string="Limpieza" name="filtro_limpieza"
+                        domain="[('tratamiento_habitual', '=', 'limpieza')]"/>
+                <filter string="Ortodoncia" name="filtro_ortodoncia"
+                        domain="[('tratamiento_habitual', '=', 'ortodoncia')]"/>
+                <filter string="Prótesis" name="filtro_protesis"
+                        domain="[('tratamiento_habitual', '=', 'protesis')]"/>
+                <group>
+                    <filter string="Tratamiento habitual" name="agrupar_tratamiento"
+                            context="{'group_by': 'tratamiento_habitual'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción: abre los pacientes (la usa el menú) -->
+    <record id="clinica_paciente_action" model="ir.actions.act_window">
+        <field name="name">Pacientes</field>
+        <field name="res_model">clinica.paciente</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registra el primer paciente de la clínica
+            </p>
+        </field>
+    </record>
+
+</odoo>

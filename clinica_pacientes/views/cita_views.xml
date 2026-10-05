@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista de lista -->
+    <record id="clinica_cita_view_list" model="ir.ui.view">
+        <field name="name">clinica.cita.list</field>
+        <field name="model">clinica.cita</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="fecha"/>
+                <field name="paciente_id"/>
+                <field name="tratamiento"/>
+                <field name="importe" sum="Total"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="estado" widget="badge"
+                       decoration-info="estado == 'confirmada'"
+                       decoration-success="estado == 'realizada'"
+                       decoration-muted="estado == 'cancelada'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario (los botones de estado llegan en la fase D) -->
+    <record id="clinica_cita_view_form" model="ir.ui.view">
+        <field name="name">clinica.cita.form</field>
+        <field name="model">clinica.cita</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="paciente_id"/>
+                            <field name="fecha"/>
+                            <field name="tratamiento"/>
+                        </group>
+                        <group>
+                            <field name="importe"/>
+                            <field name="currency_id" invisible="True"/>
+                            <field name="estado"/>
+                        </group>
+                    </group>
+                    <field name="notas" placeholder="Notas de la cita..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda: filtros y agrupaciones -->
+    <record id="clinica_cita_view_search" model="ir.ui.view">
+        <field name="name">clinica.cita.search</field>
+        <field name="model">clinica.cita</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="paciente_id"/>
+                <filter string="Borrador" name="filtro_borrador"
+                        domain="[('estado', '=', 'borrador')]"/>
+                <filter string="Confirmada" name="filtro_confirmada"
+                        domain="[('estado', '=', 'confirmada')]"/>
+                <filter string="Realizada" name="filtro_realizada"
+                        domain="[('estado', '=', 'realizada')]"/>
+                <filter string="Cancelada" name="filtro_cancelada"
+                        domain="[('estado', '=', 'cancelada')]"/>
+                <separator/>
+                <filter string="Fecha" name="filtro_fecha" date="fecha"/>
+                <group>
+                    <filter string="Paciente" name="agrupar_paciente"
+                            context="{'group_by': 'paciente_id'}"/>
+                    <filter string="Estado" name="agrupar_estado"
+                            context="{'group_by': 'estado'}"/>
+                    <filter string="Tratamiento" name="agrupar_tratamiento"
+                            context="{'group_by': 'tratamiento'}"/>
+                    <filter string="Mes" name="agrupar_mes"
+                            context="{'group_by': 'fecha:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción: abre las citas (la usa el menú) -->
+    <record id="clinica_cita_action" model="ir.actions.act_window">
+        <field name="name">Citas</field>
+        <field name="res_model">clinica.cita</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea la primera cita
+            </p>
+        </field>
+    </record>
+
+</odoo>

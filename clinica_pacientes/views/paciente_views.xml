@@ -29,9 +29,13 @@
                         <group>
                             <field name="telefono"/>
                             <field name="fecha_nacimiento"/>
+                            <field name="edad"/>
+                            
                         </group>
                         <group>
                             <field name="tratamiento_habitual_id"/>
+                            <field name="num_citas"/>
+                           
                         </group>
                     </group>
                     <notebook>

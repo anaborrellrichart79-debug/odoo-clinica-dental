@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista de lista editable: los tratamientos se crean y editan en la propia lista -->
+    <record id="clinica_tratamiento_view_list" model="ir.ui.view">
+        <field name="name">clinica.tratamiento.list</field>
+        <field name="model">clinica.tratamiento</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="nombre"/>
+                <field name="duracion"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda: permite ver los tratamientos archivados -->
+    <record id="clinica_tratamiento_view_search" model="ir.ui.view">
+        <field name="name">clinica.tratamiento.search</field>
+        <field name="model">clinica.tratamiento</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nombre"/>
+                <filter string="Archivados" name="filtro_archivados"
+                        domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción: abre los tratamientos (la usa el menú de Configuración) -->
+    <record id="clinica_tratamiento_action" model="ir.actions.act_window">
+        <field name="name">Tratamientos</field>
+        <field name="res_model">clinica.tratamiento</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea el primer tratamiento de la clínica
+            </p>
+        </field>
+    </record>
+
+</odoo>

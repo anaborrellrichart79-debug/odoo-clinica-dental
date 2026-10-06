@@ -10,7 +10,7 @@
                 <field name="nombre"/>
                 <field name="telefono"/>
                 <field name="fecha_nacimiento"/>
-                <field name="tratamiento_habitual"/>
+                <field name="tratamiento_habitual_id"/>
             </list>
         </field>
     </record>
@@ -31,7 +31,7 @@
                             <field name="fecha_nacimiento"/>
                         </group>
                         <group>
-                            <field name="tratamiento_habitual"/>
+                            <field name="tratamiento_habitual_id"/>
                         </group>
                     </group>
                     <notebook>
@@ -39,7 +39,7 @@
                             <field name="cita_ids">
                                 <list>
                                     <field name="fecha"/>
-                                    <field name="tratamiento"/>
+                                    <field name="tratamiento_id"/>
                                     <field name="importe" sum="Total"/>
                                     <field name="currency_id" column_invisible="True"/>
                                     <field name="estado"/>
@@ -64,15 +64,10 @@
             <search>
                 <field name="nombre"/>
                 <field name="telefono"/>
-                <filter string="Limpieza" name="filtro_limpieza"
-                        domain="[('tratamiento_habitual', '=', 'limpieza')]"/>
-                <filter string="Ortodoncia" name="filtro_ortodoncia"
-                        domain="[('tratamiento_habitual', '=', 'ortodoncia')]"/>
-                <filter string="Prótesis" name="filtro_protesis"
-                        domain="[('tratamiento_habitual', '=', 'protesis')]"/>
+                <field name="tratamiento_habitual_id"/>
                 <group>
                     <filter string="Tratamiento habitual" name="agrupar_tratamiento"
-                            context="{'group_by': 'tratamiento_habitual'}"/>
+                            context="{'group_by': 'tratamiento_habitual_id'}"/>
                 </group>
             </search>
         </field>

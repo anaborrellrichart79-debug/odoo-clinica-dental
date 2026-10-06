@@ -1,3 +1,4 @@
+from . import hora
+from . import tratamiento
 from . import paciente
 from . import cita
-from . import duracion_tratamiento

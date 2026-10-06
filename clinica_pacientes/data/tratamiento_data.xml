@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- noupdate: si la clínica cambia un tratamiento, actualizar el módulo no lo pisa -->
+<odoo noupdate="1">
+
+    <record id="tratamiento_limpieza" model="clinica.tratamiento">
+        <field name="nombre">Limpieza</field>
+        <field name="duracion">30</field>
+    </record>
+
+    <record id="tratamiento_ortodoncia" model="clinica.tratamiento">
+        <field name="nombre">Ortodoncia</field>
+        <field name="duracion">30</field>
+    </record>
+
+    <record id="tratamiento_protesis" model="clinica.tratamiento">
+        <field name="nombre">Prótesis</field>
+        <field name="duracion">60</field>
+    </record>
+
+</odoo>

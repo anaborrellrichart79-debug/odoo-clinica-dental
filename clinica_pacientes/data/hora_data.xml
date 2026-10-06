@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Horas en las que puede empezar una cita: de 09:00 a 19:30, cada 30 minutos -->
+<odoo>
+
+    <record id="hora_0900" model="clinica.hora">
+        <field name="nombre">09:00</field>
+        <field name="minutos">540</field>
+    </record>
+    <record id="hora_0930" model="clinica.hora">
+        <field name="nombre">09:30</field>
+        <field name="minutos">570</field>
+    </record>
+    <record id="hora_1000" model="clinica.hora">
+        <field name="nombre">10:00</field>
+        <field name="minutos">600</field>
+    </record>
+    <record id="hora_1030" model="clinica.hora">
+        <field name="nombre">10:30</field>
+        <field name="minutos">630</field>
+    </record>
+    <record id="hora_1100" model="clinica.hora">
+        <field name="nombre">11:00</field>
+        <field name="minutos">660</field>
+    </record>
+    <record id="hora_1130" model="clinica.hora">
+        <field name="nombre">11:30</field>
+        <field name="minutos">690</field>
+    </record>
+    <record id="hora_1200" model="clinica.hora">
+        <field name="nombre">12:00</field>
+        <field name="minutos">720</field>
+    </record>
+    <record id="hora_1230" model="clinica.hora">
+        <field name="nombre">12:30</field>
+        <field name="minutos">750</field>
+    </record>
+    <record id="hora_1300" model="clinica.hora">
+        <field name="nombre">13:00</field>
+        <field name="minutos">780</field>
+    </record>
+    <record id="hora_1330" model="clinica.hora">
+        <field name="nombre">13:30</field>
+        <field name="minutos">810</field>
+    </record>
+    <record id="hora_1400" model="clinica.hora">
+        <field name="nombre">14:00</field>
+        <field name="minutos">840</field>
+    </record>
+    <record id="hora_1430" model="clinica.hora">
+        <field name="nombre">14:30</field>
+        <field name="minutos">870</field>
+    </record>
+    <record id="hora_1500" model="clinica.hora">
+        <field name="nombre">15:00</field>
+        <field name="minutos">900</field>
+    </record>
+    <record id="hora_1530" model="clinica.hora">
+        <field name="nombre">15:30</field>
+        <field name="minutos">930</field>
+    </record>
+    <record id="hora_1600" model="clinica.hora">
+        <field name="nombre">16:00</field>
+        <field name="minutos">960</field>
+    </record>
+    <record id="hora_1630" model="clinica.hora">
+        <field name="nombre">16:30</field>
+        <field name="minutos">990</field>
+    </record>
+    <record id="hora_1700" model="clinica.hora">
+        <field name="nombre">17:00</field>
+        <field name="minutos">1020</field>
+    </record>
+    <record id="hora_1730" model="clinica.hora">
+        <field name="nombre">17:30</field>
+        <field name="minutos">1050</field>
+    </record>
+    <record id="hora_1800" model="clinica.hora">
+        <field name="nombre">18:00</field>
+        <field name="minutos">1080</field>
+    </record>
+    <record id="hora_1830" model="clinica.hora">
+        <field name="nombre">18:30</field>
+        <field name="minutos">1110</field>
+    </record>
+    <record id="hora_1900" model="clinica.hora">
+        <field name="nombre">19:00</field>
+        <field name="minutos">1140</field>
+    </record>
+    <record id="hora_1930" model="clinica.hora">
+        <field name="nombre">19:30</field>
+        <field name="minutos">1170</field>
+    </record>
+
+</odoo>

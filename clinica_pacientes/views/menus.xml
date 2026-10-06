@@ -11,7 +11,7 @@
               parent="clinica_menu_root" action="clinica_cita_action" sequence="20"/>
     <menuitem id="menu_clinica_configuracion" name="Configuración"
               parent="clinica_menu_root" sequence="30"/>
-    <menuitem id="menu_clinica_duracion" name="Duración de tratamientos"
-              parent="menu_clinica_configuracion" action="clinica_duracion_action"/>
+    <menuitem id="menu_clinica_tratamiento" name="Tratamientos"
+              parent="menu_clinica_configuracion" action="clinica_tratamiento_action"/>
 
 </odoo>

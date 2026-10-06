@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Privilegio: agrupa los grupos de la clínica en la ficha del usuario
+         (Ajustes → Usuarios → Clínica: Recepción / Doctor) -->
+    <record id="res_groups_privilege_clinica" model="res.groups.privilege">
+        <field name="name">Clínica</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- Recepción: gestiona pacientes y agenda -->
+    <record id="group_recepcion" model="res.groups">
+        <field name="name">Recepción</field>
+        <field name="sequence">10</field>
+        <field name="privilege_id" ref="res_groups_privilege_clinica"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Doctor: todo lo de Recepción (implied_ids) y además borrar,
+         marcar citas como realizadas y la configuración -->
+    <record id="group_doctor" model="res.groups">
+        <field name="name">Doctor</field>
+        <field name="sequence">20</field>
+        <field name="privilege_id" ref="res_groups_privilege_clinica"/>
+        <field name="implied_ids" eval="[(4, ref('group_recepcion'))]"/>
+        <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

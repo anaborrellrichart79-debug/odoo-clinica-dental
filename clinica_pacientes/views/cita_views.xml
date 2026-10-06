@@ -39,6 +39,7 @@
                             type="object"
                             string="Marcar como realizada"
                             class="btn-primary"
+                            groups="clinica_pacientes.group_doctor"
                             invisible="estado != 'confirmada'"/>
 
                     <button name="action_cancelar"

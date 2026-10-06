@@ -186,6 +186,10 @@ class ClinicaCita(models.Model):
                 cita.estado = 'confirmada'
 
     def action_realizar(self):
+        # Solo un doctor puede dar una cita por realizada (el botón ya está
+        # oculto para recepción, pero la regla de verdad está aquí)
+        if not self.env.user.has_group('clinica_pacientes.group_doctor'):
+            raise UserError(self.env._("Solo un doctor puede marcar una cita como realizada."))
         for cita in self:
             if cita.estado != 'confirmada':
                 raise UserError(self.env._("No se puede realizar una cita que no esté confirmada."))

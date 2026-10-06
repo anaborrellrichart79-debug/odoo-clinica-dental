@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Menú raíz: la app "Clínica" -->
-    <menuitem id="clinica_menu_root" name="Clínica" sequence="10"/>
+    <!-- Menú raíz: la app "Clínica" (solo para los grupos de la clínica) -->
+    <menuitem id="clinica_menu_root" name="Clínica" sequence="10"
+              groups="group_recepcion"/>
 
     <!-- Submenús: cada uno abre su acción -->
     <menuitem id="clinica_paciente_menu" name="Pacientes"
               parent="clinica_menu_root" action="clinica_paciente_action" sequence="10"/>
     <menuitem id="clinica_cita_menu" name="Citas"
               parent="clinica_menu_root" action="clinica_cita_action" sequence="20"/>
+    <!-- Configuración: solo Doctor -->
     <menuitem id="menu_clinica_configuracion" name="Configuración"
-              parent="clinica_menu_root" sequence="30"/>
+              parent="clinica_menu_root" sequence="30" groups="group_doctor"/>
     <menuitem id="menu_clinica_tratamiento" name="Tratamientos"
               parent="menu_clinica_configuracion" action="clinica_tratamiento_action"/>
 

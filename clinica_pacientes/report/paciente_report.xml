@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Acción de informe: añade "Ficha del paciente" al botón Imprimir del paciente -->
+    <record id="clinica_paciente_report" model="ir.actions.report">
+        <field name="name">Ficha del paciente</field>
+        <field name="model">clinica.paciente</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">clinica_pacientes.report_paciente</field>
+        <!-- Nombre del archivo descargado: "Ficha - Ana.pdf" -->
+        <field name="print_report_name">'Ficha - %s' % object.nombre</field>
+        <field name="binding_model_id" ref="model_clinica_paciente"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Plantilla QWeb: una página por paciente -->
+    <template id="report_paciente">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="paciente">
+                <!-- external_layout: cabecera y pie con los datos de la compañía -->
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="paciente.nombre"/>
+
+                        <table class="table table-sm table-borderless w-50 mb-4">
+                            <tr t-if="paciente.telefono">
+                                <th>Teléfono</th>
+                                <td><span t-field="paciente.telefono"/></td>
+                            </tr>
+                            <tr t-if="paciente.fecha_nacimiento">
+                                <th>Fecha de nacimiento</th>
+                                <td>
+                                    <span t-field="paciente.fecha_nacimiento"/>
+                                    (<span t-field="paciente.edad"/> años)
+                                </td>
+                            </tr>
+                            <tr t-if="paciente.tratamiento_habitual_id">
+                                <th>Tratamiento habitual</th>
+                                <td><span t-field="paciente.tratamiento_habitual_id"/></td>
+                            </tr>
+                        </table>
+
+                        <h4>Historial de citas</h4>
+                        <!-- Citas ordenadas de la más antigua a la más reciente -->
+                        <t t-set="citas" t-value="paciente.cita_ids.sorted('fecha')"/>
+                        <p t-if="not citas">El paciente no tiene citas.</p>
+                        <table t-else="" class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Fecha y hora</th>
+                                    <th>Tratamiento</th>
+                                    <th class="text-end">Duración</th>
+                                    <th>Estado</th>
+                                    <th class="text-end">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="citas" t-as="cita">
+                                    <td><span t-field="cita.fecha" t-options="{'hide_seconds': True}"/></td>
+                                    <td><span t-field="cita.tratamiento_id"/></td>
+                                    <td class="text-end"><span t-field="cita.duracion"/> min</td>
+                                    <td><span t-field="cita.estado"/></td>
+                                    <td class="text-end"><span t-field="cita.importe"/></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <!-- Las citas canceladas no se cobran -->
+                                <t t-set="total" t-value="sum(citas.filtered(lambda c: c.estado != 'cancelada').mapped('importe'))"/>
+                                <tr>
+                                    <th colspan="4" class="text-end">Total (sin canceladas)</th>
+                                    <th class="text-end">
+                                        <span t-out="total"
+                                              t-options="{'widget': 'monetary', 'display_currency': paciente.env.company.currency_id}"/>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div t-if="paciente.notas" class="mt-4">
+                            <h4>Notas</h4>
+                            <p t-field="paciente.notas"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

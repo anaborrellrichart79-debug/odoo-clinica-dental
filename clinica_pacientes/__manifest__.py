@@ -14,6 +14,7 @@
         'views/cita_views.xml',
         'views/tratamiento_views.xml',
         'views/menus.xml',
+        'report/paciente_report.xml',
         'data/tratamiento_data.xml',
         'data/hora_data.xml',
     ],

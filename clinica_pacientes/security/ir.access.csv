@@ -1,3 +1,4 @@
 id,name,model_id,group_id/id,operation,domain
 access_clinica_paciente_user,Paciente: usuario interno (provisional),clinica.paciente,base.group_user,crud,
 access_clinica_cita_user,Cita: usuario interno (provisional),clinica.cita,base.group_user,crud,
+access_clinica_duracion_tratamiento_user,Duración del tratamiento: usuario interno (provisional),clinica.duracion.tratamiento,base.group_user,crud,

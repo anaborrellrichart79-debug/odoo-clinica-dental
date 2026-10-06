@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista de lista editable: solo hay 3 filas, se editan sin abrir formulario -->
+    <record id="clinica_duracion_tratamiento_view_list" model="ir.ui.view">
+        <field name="name">clinica.duracion.tratamiento.list</field>
+        <field name="model">clinica.duracion.tratamiento</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="tratamiento"/>
+                <field name="minutos"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Acción: abre la lista de duraciones (la usa el menú de Configuración) -->
+    <record id="clinica_duracion_action" model="ir.actions.act_window">
+        <field name="name">Duración de tratamientos</field>
+        <field name="res_model">clinica.duracion.tratamiento</field>
+        <field name="view_mode">list</field>
+    </record>
+
+</odoo>

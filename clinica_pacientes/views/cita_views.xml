@@ -9,6 +9,7 @@
             <list>
                 <field name="fecha"/>
                 <field name="paciente_id"/>
+                <field name="fecha_fin"/>
                 <field name="tratamiento"/>
                 <field name="importe" sum="Total"/>
                 <field name="currency_id" column_invisible="True"/>
@@ -32,6 +33,8 @@
                             <field name="paciente_id"/>
                             <field name="fecha"/>
                             <field name="tratamiento"/>
+                            <field name="duracion"/>
+                            <field name="fecha_fin"/>
                         </group>
                         <group>
                             <field name="importe"/>

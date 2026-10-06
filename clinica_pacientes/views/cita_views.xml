@@ -27,6 +27,35 @@
         <field name="model">clinica.cita</field>
         <field name="arch" type="xml">
             <form>
+                <!-- Cabecera: botones de estado y barra de estados -->
+                <header>
+                    <button name="action_confirmar"
+                            type="object"
+                            string="Confirmar"
+                            class="btn-primary"
+                            invisible="estado != 'borrador'"/>
+
+                    <button name="action_realizar"
+                            type="object"
+                            string="Marcar como realizada"
+                            class="btn-primary"
+                            invisible="estado != 'confirmada'"/>
+
+                    <button name="action_cancelar"
+                            type="object"
+                            string="Cancelar"
+                            confirm="¿Seguro que quieres cancelar la cita?"
+                            invisible="estado not in ('borrador', 'confirmada')"/>
+
+                    <button name="action_borrador"
+                            type="object"
+                            string="Volver a borrador"
+                            invisible="estado != 'cancelada'"/>
+
+                    <!-- La barra de estados va siempre la última del header -->
+                    <field name="estado" widget="statusbar"
+                           statusbar_visible="borrador,confirmada,realizada"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -43,7 +72,6 @@
                         <group>
                             <field name="importe"/>
                             <field name="currency_id" invisible="True"/>
-                            <field name="estado"/>
                         </group>
                     </group>
                     <field name="notas" placeholder="Notas de la cita..."/>

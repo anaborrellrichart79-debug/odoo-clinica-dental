@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 # La clínica cierra a las 20:00 (en minutos desde las 00:00)
 HORA_CIERRE = 20 * 60
@@ -164,3 +164,44 @@ class ClinicaCita(models.Model):
                     "La cita se solapa con la cita de %(paciente)s.",
                     paciente=citas_conflictivas.paciente_id.nombre,
                 ))
+
+    # ------------------------------------------------------------------
+    # Botones para cambiar el estado de la cita
+    #
+    #   borrador ──> confirmada ──> realizada
+    #      │              │
+    #      └──> cancelada <┘
+    #              │
+    #              └──> borrador   (volver a abrir una cita cancelada)
+    #
+    # Cada método se llama desde un botón del formulario (type="object").
+    # self puede traer varias citas: hay que recorrerlas con un for.
+    # ------------------------------------------------------------------
+
+    def action_confirmar(self):
+        for cita in self:
+            if cita.estado != 'borrador':
+                raise UserError(self.env._("No se puede confirmar una cita que no esté en borrador."))
+            else:
+                cita.estado = 'confirmada'
+
+    def action_realizar(self):
+        for cita in self:
+            if cita.estado != 'confirmada':
+                raise UserError(self.env._("No se puede realizar una cita que no esté confirmada."))
+            else:
+                cita.estado = 'realizada'
+
+    def action_cancelar(self):
+        for cita in self:
+            if cita.estado not in ('borrador', 'confirmada'):
+                raise UserError(self.env._("No se puede cancelar una cita que no esté en borrador o confirmada."))
+            else:
+                cita.estado = 'cancelada'
+
+    def action_borrador(self):
+        for cita in self:
+            if cita.estado != 'cancelada':
+                raise UserError(self.env._("Solo se puede volver a borrador desde una cita cancelada."))
+            else:
+                cita.estado = 'borrador'
